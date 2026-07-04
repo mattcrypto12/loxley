@@ -5,7 +5,56 @@
 import type { Deployment, TokenInfo } from "./deployments";
 
 export const GENERATED_DEPLOYMENTS: Record<number, Deployment> =
-  {} as unknown as Record<number, Deployment>;
+  {
+  "46630": {
+    "weth": "0xE8F8BaB71197A18DeF27799fb9295f142897156c",
+    "factory": "0xbA2717Be7ad661B5582d9050735d85Dec043225F",
+    "router": "0xc1B3d94b980F83De0909cf7BB7da833aCfC56720",
+    "merryMenShare": "0xEC81858FaB25e9C5C081777B9243E68E5Bc7f6F5",
+    "lox": "0x6662Fb018E2f92ccA89B30C5c223004455b746CE",
+    "bowStaking": "0x06F140568bE0f5eb7B562dd3ebBf037F6B95E9f5"
+  }
+} as unknown as Record<number, Deployment>;
 
 export const GENERATED_TOKEN_LISTS: Record<number, TokenInfo[]> =
-  {} as unknown as Record<number, TokenInfo[]>;
+  {
+  "46630": [
+    {
+      "address": "0x0000000000000000000000000000000000000000",
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18,
+      "isNative": true
+    },
+    {
+      "address": "0xE8F8BaB71197A18DeF27799fb9295f142897156c",
+      "symbol": "WETH",
+      "name": "Wrapped Ether",
+      "decimals": 18
+    },
+    {
+      "address": "0x6662Fb018E2f92ccA89B30C5c223004455b746CE",
+      "symbol": "LOX",
+      "name": "Loxley",
+      "decimals": 18
+    },
+    {
+      "address": "0x22227d173705b0d861a9fCe889574A915A74d245",
+      "symbol": "GOLD",
+      "name": "Marian's Gold",
+      "decimals": 18
+    },
+    {
+      "address": "0x7DEf44ABee99C07fB29aAb96B1Bb9e1DbaA90852",
+      "symbol": "SILV",
+      "name": "Sheriff's Silver",
+      "decimals": 6
+    },
+    {
+      "address": "0xD2420F31daA1Ca4622224e847E34Ea219f6aE464",
+      "symbol": "ALE",
+      "name": "Friar's Ale",
+      "decimals": 18
+    }
+  ]
+} as unknown as Record<number, TokenInfo[]>;
