@@ -26,7 +26,8 @@ export interface Pool {
 
 export function useDeployment(): Deployment | undefined {
   const chainId = useChainId();
-  return getDeployment(chainId ?? activeChain.id) ?? getDeployment(activeChain.id);
+  // strict per-chain: never fall back to another chain's addresses
+  return getDeployment(chainId ?? activeChain.id);
 }
 
 export function useTokens(): TokenInfo[] {

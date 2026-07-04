@@ -66,7 +66,19 @@ export type NetworkName = keyof typeof NETWORKS;
 const networkName = (process.env.NEXT_PUBLIC_LOXLEY_NETWORK ??
   "anvil") as NetworkName;
 
-/** The chain the app is currently pointed at. */
+/** The chain the app starts on (wallets can switch to any SUPPORTED_CHAIN). */
 export const activeChain: Chain = NETWORKS[networkName] ?? anvil;
 
-export const isLocalDemo = activeChain.id === anvil.id;
+/**
+ * Every chain the app can talk to. The default (env-selected) chain is
+ * listed first so wagmi/RainbowKit treat it as the initial chain. In
+ * production builds the local Greenwood chain is dropped entirely.
+ */
+const isProd = process.env.NODE_ENV === "production" && networkName !== "anvil";
+const others = [robinhoodMainnet, robinhoodTestnet, arbitrumSepolia, anvil].filter(
+  (c) => c.id !== activeChain.id && !(isProd && c.id === anvil.id),
+);
+
+export const SUPPORTED_CHAINS = [activeChain, ...others] as const;
+
+export const LOCAL_CHAIN_ID = anvil.id;

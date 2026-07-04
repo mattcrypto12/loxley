@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState, type ReactNode } from "react";
 import { WagmiProvider } from "wagmi";
 import { wagmiConfig } from "@/config/wagmi";
+import { activeChain } from "@/config/chains";
 
 const loxleyTheme = darkTheme({
   accentColor: "#e8b64c",
@@ -29,7 +30,11 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider theme={loxleyTheme} modalSize="compact">
+        <RainbowKitProvider
+          theme={loxleyTheme}
+          modalSize="compact"
+          initialChain={activeChain}
+        >
           {children}
         </RainbowKitProvider>
       </QueryClientProvider>

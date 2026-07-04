@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Wordmark } from "./Wordmark";
 import { ConnectControls } from "./ConnectControls";
-import { activeChain } from "@/config/chains";
+import { ChainSelect, DeploymentNotice } from "./ChainSelect";
 
 const LINKS = [
   { href: "/", label: "Swap" },
@@ -37,15 +37,14 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <span
-            className="hidden rounded-full border border-moon-700/40 px-3 py-1 text-xs text-moon-500 lg:inline"
-            title={`chainId ${activeChain.id}`}
-          >
-            {activeChain.name}
+          <span className="hidden lg:inline-flex">
+            <ChainSelect />
           </span>
           <ConnectControls />
         </div>
       </div>
+
+      <DeploymentNotice />
 
       {/* mobile nav */}
       <nav className="mx-auto mt-2 flex max-w-6xl items-center justify-center gap-5 px-4 text-sm md:hidden">
