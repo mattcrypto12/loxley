@@ -82,3 +82,10 @@ const others = [robinhoodMainnet, robinhoodTestnet, arbitrumSepolia, anvil].filt
 export const SUPPORTED_CHAINS = [activeChain, ...others] as const;
 
 export const LOCAL_CHAIN_ID = anvil.id;
+
+/** Explorer URL for a transaction, or null if the chain has no explorer. */
+export function explorerTxUrl(chainId: number, hash: string): string | null {
+  const chain = SUPPORTED_CHAINS.find((c) => c.id === chainId);
+  const base = chain?.blockExplorers?.default?.url;
+  return base ? `${base.replace(/\/$/, "")}/tx/${hash}` : null;
+}

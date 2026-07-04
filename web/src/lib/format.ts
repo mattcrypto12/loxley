@@ -45,3 +45,7 @@ export function parseAmount(input: string, decimals: number): bigint | null {
 export function shortAddr(addr: string): string {
   return `${addr.slice(0, 6)}…${addr.slice(-4)}`;
 }
+
+export function shortHash(hash: string): string {
+  return `${hash.slice(0, 10)}…${hash.slice(-6)}`;
+}

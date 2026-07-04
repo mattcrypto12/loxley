@@ -6,10 +6,13 @@ import { erc20Abi, formatUnits, maxUint256, type Address } from "viem";
 import {
   useAccount,
   useBalance,
+  useChainId,
   usePublicClient,
   useReadContract,
   useWriteContract,
 } from "wagmi";
+import { explorerTxUrl } from "@/config/chains";
+import { shortHash } from "@/lib/format";
 import { routerAbi } from "@/abi/router";
 import { wethAbi } from "@/abi/weth";
 import type { TokenInfo } from "@/config/deployments";
@@ -43,6 +46,8 @@ export function SwapCard() {
   const [arrowKey, setArrowKey] = useState(0);
   const [burstKey, setBurstKey] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [lastTx, setLastTx] = useState<`0x${string}` | null>(null);
+  const chainId = useChainId();
 
   const tIn = tokenIn ?? tokens.find((t) => t.isNative) ?? tokens[0];
   const tOut = tokenOut ?? tokens.find((t) => t.symbol === "GOLD") ?? tokens[1];
@@ -186,6 +191,7 @@ export function SwapCard() {
 
       setPhase("flying");
       await publicClient.waitForTransactionReceipt({ hash });
+      setLastTx(hash);
 
       // the arrow lands
       playThunk();
@@ -439,6 +445,26 @@ export function SwapCard() {
         {error && (
           <p className="mt-3 rounded-lg bg-blood-400/10 px-3 py-2 text-xs text-blood-400">
             {error}
+          </p>
+        )}
+
+        {lastTx && !error && phase === "idle" && (
+          <p className="mt-3 flex items-center justify-between gap-3 rounded-lg bg-ember-500/8 px-3 py-2 text-xs text-moon-500">
+            <span>
+              Arrow landed · <span className="font-mono text-moon-300">{shortHash(lastTx)}</span>
+            </span>
+            {explorerTxUrl(chainId, lastTx) ? (
+              <a
+                href={explorerTxUrl(chainId, lastTx)!}
+                target="_blank"
+                rel="noreferrer"
+                className="shrink-0 text-gold-400 hover:text-gold-300"
+              >
+                View on explorer ↗
+              </a>
+            ) : (
+              <span className="shrink-0 text-moon-700">local chain — no explorer</span>
+            )}
           </p>
         )}
 

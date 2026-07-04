@@ -80,10 +80,12 @@ export const TOKEN_LISTS: Record<number, TokenInfo[]> = {
   ],
 };
 
+import { GENERATED_DEPLOYMENTS, GENERATED_TOKEN_LISTS } from "./generated";
+
 export function getDeployment(chainId: number): Deployment | undefined {
-  return DEPLOYMENTS[chainId];
+  return DEPLOYMENTS[chainId] ?? GENERATED_DEPLOYMENTS[chainId];
 }
 
 export function getTokenList(chainId: number): TokenInfo[] {
-  return TOKEN_LISTS[chainId] ?? [];
+  return TOKEN_LISTS[chainId] ?? GENERATED_TOKEN_LISTS[chainId] ?? [];
 }

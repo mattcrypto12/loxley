@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { useChainId, useSwitchChain } from "wagmi";
+import { useBlockNumber, useChainId, useSwitchChain } from "wagmi";
 import { LOCAL_CHAIN_ID, SUPPORTED_CHAINS } from "@/config/chains";
 import { getDeployment } from "@/config/deployments";
 
@@ -28,6 +28,14 @@ export function ChainSelect() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
+  // live heartbeat: polls eth_blockNumber on the selected chain, so real
+  // RPC traffic is visible (and provable) even before contracts exist there
+  const { data: blockNumber, isError: rpcDown } = useBlockNumber({
+    chainId,
+    watch: true,
+    query: { refetchInterval: 4_000 },
+  });
+
   useEffect(() => {
     const onDoc = (e: MouseEvent) => {
       if (!ref.current?.contains(e.target as Node)) setOpen(false);
@@ -48,9 +56,19 @@ export function ChainSelect() {
       >
         <span
           className="inline-block h-2 w-2 rounded-full"
-          style={{ background: DOT[chainId] ?? "#93b29f", boxShadow: `0 0 6px ${DOT[chainId] ?? "#93b29f"}` }}
+          style={
+            rpcDown
+              ? { background: "#ff7a70", boxShadow: "0 0 6px #ff7a70" }
+              : { background: DOT[chainId] ?? "#93b29f", boxShadow: `0 0 6px ${DOT[chainId] ?? "#93b29f"}` }
+          }
         />
         {isPending ? "Switching…" : shortName(current?.name ?? `Chain ${chainId}`)}
+        {blockNumber !== undefined && !rpcDown && (
+          <span className="font-mono text-[0.65rem] text-moon-700" title="latest block (live)">
+            #{blockNumber.toString()}
+          </span>
+        )}
+        {rpcDown && <span className="text-[0.65rem] text-blood-400">rpc down</span>}
         <svg width="9" height="5" viewBox="0 0 10 6" fill="none" aria-hidden>
           <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
         </svg>

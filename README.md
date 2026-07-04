@@ -68,19 +68,27 @@ standard RainbowKit flow (MetaMask / WalletConnect / etc.) is used instead.
 
 ## Deploy to Robinhood Chain testnet
 
+One command, one prerequisite:
+
 ```bash
-cd contracts
-WEALTH_THRESHOLD=1000000000000000000 \
-forge script script/Deploy.s.sol \
-  --rpc-url robinhood_testnet \
-  --private-key $PK --broadcast
-# optional demo tokens + pools:
-FACTORY=… ROUTER=… LOX=… WETH=… forge script script/Seed.s.sol \
-  --rpc-url robinhood_testnet --private-key $PK --broadcast
+# 1. fund the deployer with a little test ETH (one-time, human step —
+#    the faucet is bot-gated). Address lives in .secrets/testnet-deployer.json:
+open https://faucet.testnet.chain.robinhood.com
+
+# 2. deploy + seed faucet-budget pools + auto-sync the web config
+./scripts/deploy-testnet.sh
 ```
 
-(Deploy WETH9 automatically happens if `WETH_ADDRESS` is unset — fine for
-testnet; on mainnet pass the canonical WETH.)
+The script deploys the protocol, seeds small demo pools (~0.02 ETH total via
+`SeedTestnet.s.sol`), and regenerates `web/src/config/generated.ts` so the
+app picks the new chain up immediately. `PRIVATE_KEY=0x… ./scripts/…` to use
+your own key; `RPC_NAME=arbitrum_sepolia` to target the fallback testnet.
+For mainnet, pass the canonical `WETH_ADDRESS` instead of letting Deploy
+create a mock.
+
+The header's network pill shows a live block-number heartbeat for whichever
+chain is selected — real RPC traffic you can watch in devtools — and every
+confirmed swap links to the chain's block explorer.
 
 ## Tests
 
