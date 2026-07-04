@@ -6,13 +6,14 @@ import { erc20Abi } from "viem";
 import { useAccount, useReadContracts } from "wagmi";
 import { TokenBadge } from "@/components/TokenBadge";
 import { fmtUsd, fmtPct } from "@/lib/format";
-import { poolTvlUsd, usePools, usePrices } from "@/lib/hooks";
+import { poolTvlUsd, useDeployment, usePools, usePrices } from "@/lib/hooks";
 import { useSwapHistory, volumeSince } from "@/lib/history";
 
 const LP_FEE_SHARE = 0.25 / 0.3; // LPs keep 25 of the 30 bps
 
 export default function HoardsPage() {
   const { address } = useAccount();
+  const deployment = useDeployment();
   const { data: pools, isLoading } = usePools();
   const { prices } = usePrices(pools);
   const { data: history } = useSwapHistory(pools, prices);
@@ -51,12 +52,21 @@ export default function HoardsPage() {
             </tr>
           </thead>
           <tbody>
-            {isLoading && (
+            {!deployment ? (
               <tr>
                 <td colSpan={6} className="px-5 py-10 text-center text-moon-700">
-                  Scouting the greenwood…
+                  No Hoards on this chain — Loxley isn&apos;t deployed here yet.
+                  Switch network in the header.
                 </td>
               </tr>
+            ) : (
+              isLoading && (
+                <tr>
+                  <td colSpan={6} className="px-5 py-10 text-center text-moon-700">
+                    Scouting the greenwood…
+                  </td>
+                </tr>
+              )
             )}
             {pools?.map((pool, i) => {
               const tvl = poolTvlUsd(pool, prices);

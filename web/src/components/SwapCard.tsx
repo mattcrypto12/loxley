@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { erc20Abi, formatUnits, maxUint256, type Address } from "viem";
 import {
   useAccount,
@@ -48,6 +48,16 @@ export function SwapCard() {
   const [error, setError] = useState<string | null>(null);
   const [lastTx, setLastTx] = useState<`0x${string}` | null>(null);
   const chainId = useChainId();
+
+  // a chain switch invalidates everything mid-flight: quotes, selected
+  // tokens, receipts from the previous chain
+  useEffect(() => {
+    setLastTx(null);
+    setError(null);
+    setInput("");
+    setTokenIn(null);
+    setTokenOut(null);
+  }, [chainId]);
 
   const tIn = tokenIn ?? tokens.find((t) => t.isNative) ?? tokens[0];
   const tOut = tokenOut ?? tokens.find((t) => t.symbol === "GOLD") ?? tokens[1];
@@ -240,6 +250,38 @@ export function SwapCard() {
       ? Number(formatUnits(quote.amountOut, tOut.decimals)) /
         Number(formatUnits(amountIn, tIn.decimals))
       : null;
+
+  // chain has no Loxley deployment: say so instead of rendering a husk
+  if (!deployment || tokens.length === 0) {
+    return (
+      <div className="relative mx-auto w-full max-w-[460px]">
+        <div className="glass gold-edge relative overflow-hidden p-4 sm:p-5">
+          <div className="mb-3 flex items-center justify-between px-1">
+            <h2 className="engraved text-sm tracking-[0.22em] text-moon-300">
+              STEAL THE SPREAD
+            </h2>
+          </div>
+          <div className="glass-inset flex flex-col items-center gap-2 px-6 py-10 text-center">
+            <p className="text-sm text-moon-300">
+              The greenwood hasn&apos;t reached this chain yet.
+            </p>
+            <p className="text-xs leading-relaxed text-moon-500">
+              Loxley isn&apos;t deployed here, so there are no Hoards to trade
+              against. Switch network in the header — the testnet is live —
+              or deploy with{" "}
+              <code className="font-mono text-gold-400">
+                ./scripts/deploy-testnet.sh
+              </code>
+              .
+            </p>
+          </div>
+          <button type="button" disabled className="btn-gold mt-4 w-full py-3.5 text-[0.95rem]">
+            No Hoards on this chain
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative mx-auto w-full max-w-[460px]">
