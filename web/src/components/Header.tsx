@@ -24,22 +24,20 @@ export function Header() {
           <Wordmark size={22} />
         </Link>
 
-        <nav className="hidden items-center gap-7 text-[0.92rem] md:flex">
+        <nav className="hidden items-center gap-6 text-[0.92rem] md:flex">
           {LINKS.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className={`nav-link pb-0.5 ${pathname === l.href ? "active" : ""}`}
+              className={`nav-link whitespace-nowrap pb-0.5 ${pathname === l.href ? "active" : ""}`}
             >
               {l.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <span className="hidden lg:inline-flex">
-            <ChainSelect />
-          </span>
+        <div className="flex shrink-0 items-center gap-2.5">
+          <ChainSelect />
           <ConnectControls />
         </div>
       </div>

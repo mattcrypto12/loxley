@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { useBlockNumber, useChainId, useSwitchChain } from "wagmi";
+import { useAccount, useBlockNumber, useChainId, useSwitchChain } from "wagmi";
 import { LOCAL_CHAIN_ID, SUPPORTED_CHAINS } from "@/config/chains";
 import { getDeployment } from "@/config/deployments";
 
@@ -28,6 +28,11 @@ export function ChainSelect() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
+  // wallet connected to a chain outside SUPPORTED_CHAINS: RainbowKit's chain
+  // chip is disabled, so this pill is the one place that must say so
+  const { chain: walletChain, isConnected } = useAccount();
+  const wrongNetwork = isConnected && walletChain === undefined;
+
   // live heartbeat: polls eth_blockNumber on the selected chain, so real
   // RPC traffic is visible (and provable) even before contracts exist there
   const { data: blockNumber, isError: rpcDown } = useBlockNumber({
@@ -51,24 +56,33 @@ export function ChainSelect() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="btn-ghost flex items-center gap-2 px-3 py-1.5 text-xs"
+        className="btn-ghost flex items-center gap-2 whitespace-nowrap px-3 py-1.5 text-xs"
         title={`chainId ${chainId}`}
       >
         <span
-          className="inline-block h-2 w-2 rounded-full"
+          className="inline-block h-2 w-2 shrink-0 rounded-full"
           style={
-            rpcDown
+            rpcDown || wrongNetwork
               ? { background: "#ff7a70", boxShadow: "0 0 6px #ff7a70" }
               : { background: DOT[chainId] ?? "#93b29f", boxShadow: `0 0 6px ${DOT[chainId] ?? "#93b29f"}` }
           }
         />
-        {isPending ? "Switching…" : shortName(current?.name ?? `Chain ${chainId}`)}
-        {blockNumber !== undefined && !rpcDown && (
-          <span className="font-mono text-[0.65rem] text-moon-700" title="latest block (live)">
+        {wrongNetwork
+          ? "Wrong network"
+          : isPending
+            ? "Switching…"
+            : shortName(current?.name ?? `Chain ${chainId}`)}
+        {blockNumber !== undefined && !rpcDown && !wrongNetwork && (
+          <span
+            className="hidden font-mono text-[0.65rem] text-moon-700 sm:inline"
+            title="latest block (live)"
+          >
             #{blockNumber.toString()}
           </span>
         )}
-        {rpcDown && <span className="text-[0.65rem] text-blood-400">rpc down</span>}
+        {rpcDown && !wrongNetwork && (
+          <span className="text-[0.65rem] text-blood-400">rpc down</span>
+        )}
         <svg width="9" height="5" viewBox="0 0 10 6" fill="none" aria-hidden>
           <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
         </svg>

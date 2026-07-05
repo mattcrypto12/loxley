@@ -4,8 +4,9 @@ import { motion } from "framer-motion";
 
 /**
  * The redistribution, drawn: every swap's 0.30% fee splits — 0.25% flows to
- * the Hoard's LPs, 0.05% is spirited away to the Merry Men's chest, and from
- * there to eligible small wallets. Animated coins ride the paths.
+ * the Hoard's LPs, 0.05% is the protocol fee — split evenly between the
+ * Merry Men's chest (then on to eligible small wallets) and the guild
+ * treasury. Animated coins ride the paths.
  */
 export function ShareFlow() {
   return (

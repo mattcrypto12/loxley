@@ -28,11 +28,11 @@ export function ConnectControls() {
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
         onClick={() => disconnect()}
-        className="btn-ghost px-4 py-2 text-sm font-mono"
+        className="btn-ghost whitespace-nowrap px-3 py-2 font-mono text-sm sm:px-4"
         title="Disconnect demo wallet"
       >
         <span className="mr-2 inline-block h-2 w-2 rounded-full bg-ember-400 shadow-[0_0_8px_#3fe89e]" />
-        {short(address)} · demo
+        <span className="hidden sm:inline">{short(address)} · </span>demo
       </motion.button>
     );
   }
@@ -54,8 +54,10 @@ export function ConnectControls() {
           {isPending ? "Entering…" : "Demo wallet"}
         </motion.button>
       )}
+      {/* chain UI lives solely in our ChainSelect pill — RainbowKit only
+          renders the account chip, so the header never shows the network twice */}
       <ConnectButton
-        chainStatus="icon"
+        chainStatus="none"
         showBalance={false}
         accountStatus={{ smallScreen: "avatar", largeScreen: "full" }}
       />

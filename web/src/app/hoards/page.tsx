@@ -34,8 +34,8 @@ export default function HoardsPage() {
         <h1 className="rise-in engraved text-3xl font-semibold">The Hoards</h1>
         <p className="rise-in rise-in-1 mt-2 max-w-xl text-sm text-moon-500">
           Every Hoard is a constant-product pool. Liquidity providers earn
-          0.25% of every swap; the remaining 0.05% feeds the Merry Men&apos;s
-          Share.
+          0.25% of every swap; the remaining 0.05% is split evenly between
+          the Merry Men&apos;s Share and the guild.
         </p>
       </header>
 
