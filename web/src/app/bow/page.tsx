@@ -131,7 +131,13 @@ export default function BowPage() {
         <Stat label="Total drawn" value={`${fmtAmount(totalStaked, 18)} LOX`} />
         <Stat
           label="Stream APR"
-          value={streamLive ? `${apr.toFixed(1)}%` : "quiet"}
+          value={
+            !streamLive
+              ? "quiet"
+              : totalStaked === 0n
+                ? "∞ — be first"
+                : `${apr.toFixed(1)}%`
+          }
           accent
         />
         <Stat label="Your draw" value={`${fmtAmount(myStake, 18)} LOX`} />

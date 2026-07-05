@@ -55,7 +55,7 @@ else
 fi
 
 echo "── seeding demo pools (faucet budget) ─────────────"
-ROUTER=$(jq -r .router "$DEP") LOX=$(jq -r .lox "$DEP") WETH=$(jq -r .weth "$DEP") \
+ROUTER=$(jq -r .router "$DEP") LOX=$(jq -r .lox "$DEP") WETH=$(jq -r .weth "$DEP") BOW=$(jq -r .bowStaking "$DEP") \
   forge script script/SeedTestnet.s.sol --rpc-url "$RPC_NAME" --private-key "$PRIVATE_KEY" \
     --broadcast --gas-estimate-multiplier $GAS_MULT -q
 

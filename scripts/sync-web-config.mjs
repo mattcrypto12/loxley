@@ -10,16 +10,14 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const depDir = join(root, "contracts", "deployments");
 const outFile = join(root, "web", "src", "config", "generated.ts");
 
-const LOCAL_CHAIN = "31337"; // local stays hardcoded in deployments.ts
-
+// every chain flows through generated.ts — including the local demo chain,
+// so a fresh `make demo` can never drift from the app config
 const requested = process.argv.slice(2);
-const chainIds = (
-  requested.length
-    ? requested
-    : readdirSync(depDir)
-        .filter((f) => /^\d+\.json$/.test(f))
-        .map((f) => f.replace(".json", ""))
-).filter((id) => id !== LOCAL_CHAIN);
+const chainIds = requested.length
+  ? requested
+  : readdirSync(depDir)
+      .filter((f) => /^\d+\.json$/.test(f))
+      .map((f) => f.replace(".json", ""));
 
 const deployments = {};
 const tokenLists = {};

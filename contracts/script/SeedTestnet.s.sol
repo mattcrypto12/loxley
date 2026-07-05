@@ -10,7 +10,7 @@ import {MockERC20} from "../src/mocks/MockERC20.sol";
 ///         Hoards with tiny ETH liquidity, and a couple of swaps so the
 ///         UI and analytics are live. Total ETH spent ≈ 4 × ETH_PER_POOL
 ///         (default 0.005 ether) plus gas.
-/// Env: ROUTER, LOX, WETH  (+ optional ETH_PER_POOL in wei)
+/// Env: ROUTER, LOX, WETH  (+ optional ETH_PER_POOL in wei, BOW for staking stream)
 contract SeedTestnet is Script {
     uint256 constant DEADLINE = type(uint256).max;
 
@@ -19,6 +19,7 @@ contract SeedTestnet is Script {
         LoxToken lox = LoxToken(vm.envAddress("LOX"));
         address weth = vm.envAddress("WETH");
         uint256 ethPerPool = vm.envOr("ETH_PER_POOL", uint256(0.005 ether));
+        address bow = vm.envOr("BOW", address(0));
 
         vm.startBroadcast();
         address me = msg.sender;
@@ -65,6 +66,13 @@ contract SeedTestnet is Script {
         router.addLiquidityETH{value: ethPerPool / 20}(
             address(gold), ethPerPool * 100, 0, 0, me, DEADLINE
         );
+
+        // fund the Drawing-the-Bow reward stream so staking APR is live
+        if (bow != address(0)) {
+            lox.mint(bow, 70_000e18);
+            (bool ok,) = bow.call(abi.encodeWithSignature("notifyRewardAmount(uint256)", 70_000e18));
+            require(ok, "Seed: BOW_NOTIFY_FAILED");
+        }
 
         vm.stopBroadcast();
 

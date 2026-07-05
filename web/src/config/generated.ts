@@ -6,6 +6,15 @@ import type { Deployment, TokenInfo } from "./deployments";
 
 export const GENERATED_DEPLOYMENTS: Record<number, Deployment> =
   {
+  "31337": {
+    "weth": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "factory": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "router": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    "merryMenShare": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+    "lox": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+    "bowStaking": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+    "feeSplitter": "0x0165878A594ca255338adfa4d48449f69242Eb8F"
+  },
   "46630": {
     "weth": "0x1C61880f2F4ce64EaD62a347ECAEA39508b68544",
     "factory": "0x9CbDE27ACEdd5DDd4BC7A152247BeB929C1144F7",
@@ -19,6 +28,45 @@ export const GENERATED_DEPLOYMENTS: Record<number, Deployment> =
 
 export const GENERATED_TOKEN_LISTS: Record<number, TokenInfo[]> =
   {
+  "31337": [
+    {
+      "address": "0x0000000000000000000000000000000000000000",
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18,
+      "isNative": true
+    },
+    {
+      "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "symbol": "WETH",
+      "name": "Wrapped Ether",
+      "decimals": 18
+    },
+    {
+      "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+      "symbol": "LOX",
+      "name": "Loxley",
+      "decimals": 18
+    },
+    {
+      "address": "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
+      "symbol": "GOLD",
+      "name": "Marian's Gold",
+      "decimals": 18
+    },
+    {
+      "address": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
+      "symbol": "SILV",
+      "name": "Sheriff's Silver",
+      "decimals": 6
+    },
+    {
+      "address": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
+      "symbol": "ALE",
+      "name": "Friar's Ale",
+      "decimals": 18
+    }
+  ],
   "46630": [
     {
       "address": "0x0000000000000000000000000000000000000000",

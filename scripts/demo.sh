@@ -127,10 +127,13 @@ cast send "$ME" --value "$SEND" \
   --rpc-url "$RPC" --private-key "$DEMO_PK" -q > /dev/null
 echo "demo wallet balance: $(cast balance "$DEMO_ADDR" --rpc-url "$RPC" | python3 -c 'import sys; print(int(sys.stdin.read())/1e18, "ETH")')"
 
+echo "── syncing web config ─────────────────────────────"
+node "$ROOT/scripts/sync-web-config.mjs"
+
 echo "── done ───────────────────────────────────────────"
 echo "chainId:   $CHAIN_ID"
 echo "factory:   $FACTORY"
 echo "router:    $ROUTER"
 echo "demo user: $DEMO_ADDR"
 echo
-echo "If addresses changed, sync web/src/config/deployments.ts"
+echo "web config auto-synced (generated.ts)"
