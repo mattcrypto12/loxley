@@ -475,8 +475,9 @@ export function SwapCard() {
                 <div className="flex items-start justify-between gap-4 pt-1 text-moon-500">
                   <span>Fee 0.30%</span>
                   <span className="text-right">
-                    0.25% → Hoard LPs ·{" "}
-                    <span className="text-gold-400">0.05% → Merry Men&apos;s Share</span>
+                    0.25% → LPs ·{" "}
+                    <span className="text-gold-400">0.025% → Merry Men&apos;s Share</span>{" "}
+                    · 0.025% → Guild
                   </span>
                 </div>
               </div>

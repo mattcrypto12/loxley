@@ -170,8 +170,9 @@ export default function SharePage() {
           The Merry Men&apos;s <span className="text-gold-400 text-glow-gold">Share</span>
         </h1>
         <p className="rise-in rise-in-1 mt-2 max-w-2xl text-sm leading-relaxed text-moon-500">
-          A twentieth of every fee — 0.05% of all volume — is carved off the
-          rich flow of trade and returned to the smallfolk: wallets under{" "}
+          The protocol&apos;s 0.05% cut is split down the middle by an
+          immutable on-chain contract: half funds the guild, half — 0.025% of
+          all volume — is returned to the smallfolk: wallets under{" "}
           <span className="font-mono text-gold-400">
             {wealthThreshold !== undefined ? `${formatEther(wealthThreshold)} ETH` : "…"}
           </span>{" "}

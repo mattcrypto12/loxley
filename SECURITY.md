@@ -71,6 +71,10 @@ design, same shape as Uniswap v2 itself):
 4. **Admin keys.** `feeToSetter`, treasury owner, and LOX owner are EOAs
    pre-launch. Mainnet plan: timelock + multisig, then progressive
    renouncement.
+   The `SpoilsSplitter`'s guild/Share ratio is immutable (constructor-set);
+   its only mutable state is the guild treasury address, rotatable solely
+   by the current treasury. `split()` is permissionless but can only move
+   funds to the two hardcoded destinations.
 5. **The live testnet deployment (46630) includes the `_isHoard` fix**
    (redeployed 2026-07-05; `factory()` wired, `MAX_EPOCH_TOKENS = 16`
    readable on-chain).

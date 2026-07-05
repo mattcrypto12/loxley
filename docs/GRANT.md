@@ -66,13 +66,15 @@ of it.
 
 **Solution.** A deliberately boring, auditable constant-product AMM (the
 exact v2 design that has secured billions for six years) with one twist at
-the treasury layer: the 0.05% protocol fee (1/6 of the 0.30% swap fee)
-accrues to the **Merry Men's Share** — a contract that divides each weekly
-epoch's take pro-rata among wallets that actually used the protocol in the
-last 30 days *and* hold less than a wealth threshold. Whales pay in like
-everyone else; only the smallfolk claim out. It is Robin Hood as mechanism
-design, on Robinhood's own chain — and every rule of it is inspectable
-on-chain.
+the treasury layer: the 0.05% protocol fee (1/6 of the 0.30% swap fee) is
+split by an immutable on-chain contract — half to the **Merry Men's Share**,
+which divides each weekly epoch's take pro-rata among wallets that actually
+used the protocol in the last 30 days *and* hold less than a wealth
+threshold, and half to the guild treasury that sustains development. Whales
+pay in like everyone else; only the smallfolk claim from the Share. It is
+Robin Hood as mechanism design, on Robinhood's own chain — every rule
+inspectable, the split fixed forever at deployment, and the protocol
+self-funding without a token sale.
 
 **Why us / why now.** Fully working product, already live on Robinhood
 Chain testnet (addresses below), with contract tests on every money path

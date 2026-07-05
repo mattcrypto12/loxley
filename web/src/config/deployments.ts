@@ -7,6 +7,8 @@ export interface Deployment {
   lox: Address;
   bowStaking: Address;
   weth: Address;
+  /** SpoilsSplitter (factory.feeTo): immutable 50/50 Share/guild split */
+  feeSplitter?: Address;
 }
 
 export interface TokenInfo {

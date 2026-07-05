@@ -14,7 +14,7 @@ export function ShareFlow() {
         viewBox="0 0 720 240"
         className="w-full"
         role="img"
-        aria-label="Fee flow: 0.30% swap fee splits into 0.25% for liquidity providers and 0.05% for the Merry Men's Share, which is redistributed to active small wallets"
+        aria-label="Fee flow: 0.30% swap fee splits into 0.25% for liquidity providers and a 0.05% protocol fee, itself split 50/50 between the Merry Men's Share — redistributed to active small wallets — and the guild treasury"
       >
         <defs>
           <linearGradient id="path-emerald" x1="0" y1="0" x2="1" y2="0">
@@ -47,7 +47,7 @@ export function ShareFlow() {
         />
 
         <Node x={360} y={32} w={150} h={60} title="Hoard LPs" sub="0.25% — steady" tone="ember" />
-        <Node x={360} y={148} w={150} h={60} title="Merry Men's chest" sub="0.05% — the Share" tone="gold" />
+        <Node x={360} y={148} w={150} h={60} title="Merry Men's chest" sub="0.025% — the Share" tone="gold" />
 
         {/* redistribution path */}
         <path
@@ -70,6 +70,12 @@ export function ShareFlow() {
           <Coin key={`out-${delay}`} path="M510 178 C 590 178, 600 120, 690 120" color="#ffd76f" delay={delay} dur={4.2} />
         ))}
       </svg>
+      <p className="mt-3 px-1 text-center text-[0.7rem] leading-relaxed text-moon-700">
+        The protocol&apos;s 0.05% is divided by the SpoilsSplitter — an
+        immutable 50/50 on-chain split between the Merry Men&apos;s chest and
+        the guild treasury that maintains Loxley. No hidden levers: the ratio
+        is fixed at deployment, forever.
+      </p>
     </div>
   );
 }

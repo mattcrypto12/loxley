@@ -26,14 +26,16 @@ and demonstration use only.**
 | --- | --- |
 | **Hoards** | Uniswap-v2-style constant-product pools (0.30% swap fee) |
 | **Greenwood Path** | The router — slippage bounds + deadlines on every entry point |
-| **Merry Men's Share** | 0.05% of all volume (1/6 of the fee) flows to a treasury that redistributes, weekly, to *active small wallets* — swapped or LP'd in the last 30 days **and** holding less than the wealth threshold. Big wallets pay in; only the smallfolk claim out. |
+| **Merry Men's Share** | Half the protocol fee — 0.025% of all volume — flows to a treasury that redistributes, weekly, to *active small wallets* — swapped or LP'd in the last 30 days **and** holding less than the wealth threshold. Big wallets pay in; only the smallfolk claim out. |
+| **SpoilsSplitter** | The factory's `feeTo`. Splits the 0.05% protocol fee **50/50, immutably** between the Merry Men's Share and the guild treasury that maintains Loxley. Ratio fixed at deploy; only the treasury can rotate its own address. Full fee picture: **0.30% = 0.25% LPs + 0.025% Share + 0.025% guild.** |
 | **Drawing the Bow** | $LOX staking with streamed rewards |
 | **$LOX** | Governance token, hard cap 100M |
 
-The 0.05% split needs no custom pair logic: it is exactly Uniswap v2's
-battle-tested `feeTo` protocol fee (1/6 of fee growth, minted as LP tokens),
-pointed at the `MerryMenShare` contract. The pair stays boring; the politics
-live in the treasury.
+The 0.05% protocol fee needs no custom pair logic: it is exactly Uniswap
+v2's battle-tested `feeTo` protocol fee (1/6 of fee growth, minted as LP
+tokens), pointed at the `SpoilsSplitter`, which forwards it 50/50 to the
+`MerryMenShare` and the guild treasury. The pair stays boring; the politics
+live in the treasury layer — disclosed, immutable, and inspectable.
 
 ## Layout
 

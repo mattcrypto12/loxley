@@ -12,7 +12,8 @@ export const GENERATED_DEPLOYMENTS: Record<number, Deployment> =
     "router": "0xD76e7a2A8B3c06D62b3F57622a15b9F27945CEA2",
     "merryMenShare": "0xf1553459b978Aa8c9B85b0769dB3b3D8D2AD1356",
     "lox": "0x5355Ca93a24821bc77ee6d19DAF29219328afBc6",
-    "bowStaking": "0xb274cf9770D87cb5c1D3DcAc0495D14814EbB809"
+    "bowStaking": "0xb274cf9770D87cb5c1D3DcAc0495D14814EbB809",
+    "feeSplitter": "0xf5D72f9639F3ccd5A517D02fab663739E846B708"
   }
 } as unknown as Record<number, Deployment>;
 

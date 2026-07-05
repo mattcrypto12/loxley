@@ -5,6 +5,7 @@ import {Script, console} from "forge-std/Script.sol";
 import {LoxleyFactory} from "../src/core/LoxleyFactory.sol";
 import {GreenwoodRouter} from "../src/periphery/GreenwoodRouter.sol";
 import {MerryMenShare} from "../src/MerryMenShare.sol";
+import {SpoilsSplitter} from "../src/SpoilsSplitter.sol";
 import {LoxToken} from "../src/LoxToken.sol";
 import {BowStaking} from "../src/BowStaking.sol";
 import {WETH9} from "../src/mocks/WETH9.sol";
@@ -31,11 +32,17 @@ contract Deploy is Script {
         LoxToken lox = new LoxToken();
         BowStaking bow = new BowStaking(address(lox));
 
+        // protocol fee splits between the Share and the guild treasury —
+        // ratio fixed forever at deploy time, disclosed in all docs
+        address guildTreasury = vm.envOr("TREASURY", msg.sender);
+        uint256 merryBps = vm.envOr("MERRY_BPS", uint256(5_000)); // 50/50 default
+        SpoilsSplitter splitter = new SpoilsSplitter(address(share), guildTreasury, merryBps);
+
         // wire the fee redistribution loop
         share.setRouter(address(router));
         share.setFactory(address(factory)); // only real Hoard LP as rewards
         router.setMerryMenShare(address(share));
-        factory.setFeeTo(address(share));
+        factory.setFeeTo(address(splitter));
 
         vm.stopBroadcast();
 
@@ -55,6 +62,7 @@ contract Deploy is Script {
         vm.serializeAddress(json, "merryMenShare", address(share));
         vm.serializeAddress(json, "lox", address(lox));
         vm.serializeAddress(json, "bowStaking", address(bow));
+        vm.serializeAddress(json, "feeSplitter", address(splitter));
         string memory out = vm.serializeAddress(json, "weth", weth);
         vm.writeJson(out, string.concat("./deployments/", vm.toString(block.chainid), ".json"));
     }

@@ -13,9 +13,9 @@ export default function SwapPage() {
           <span className="text-gold-400 text-glow-gold">spoils</span>.
         </h1>
         <p className="rise-in rise-in-3 mx-auto mt-4 max-w-md text-sm leading-relaxed text-moon-500">
-          Every swap pays 0.30%. A twentieth of that — the Merry Men&apos;s
-          Share — is carved off and handed back to the smallfolk of the
-          greenwood.
+          Every swap pays 0.30%: 0.25% to liquidity providers, 0.025% to the
+          Merry Men&apos;s Share for the smallfolk, and 0.025% to the guild
+          that keeps the greenwood standing. Every split on-chain, immutable.
         </p>
       </div>
       <SwapCard />

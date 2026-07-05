@@ -87,10 +87,24 @@ for r in 1 2; do
   swap_tokens   200000000 "$SILV" "$GOLD"
 done
 
-# a liquidity nudge so _mintFee runs and the Merry Men's chest fills visibly
+# a liquidity nudge so _mintFee runs and the splitter receives protocol LP
 cast send "$ROUTER" "addLiquidityETH(address,uint256,uint256,uint256,address,uint256)" \
   "$GOLD" 1000000000000000000000 0 0 "$ME" $DEADLINE --value 500000000000000000 \
   --rpc-url "$RPC" --private-key "$DEPLOYER_PK" -q > /dev/null
+
+# run the split so the Merry Men's chest (and guild treasury) fill visibly
+SPLITTER=$(jq -r '.feeSplitter // empty' "$DEP")
+if [ -n "$SPLITTER" ]; then
+  N=$(cast call "$FACTORY" "allHoardsLength()(uint256)" --rpc-url "$RPC" | cut -d' ' -f1)
+  PAIRS=""
+  for i in $(seq 0 $((N-1))); do
+    P=$(cast call "$FACTORY" "allHoards(uint256)(address)" "$i" --rpc-url "$RPC")
+    PAIRS="$PAIRS${PAIRS:+,}$P"
+  done
+  cast send "$SPLITTER" "split(address[])" "[$PAIRS]" \
+    --rpc-url "$RPC" --private-key "$DEPLOYER_PK" -q > /dev/null
+  echo "spoils split across $N hoards (½ Share, ½ guild)"
+fi
 
 # fund a 7-day Drawing-the-Bow reward stream (70k LOX)
 BOW=$(jq -r .bowStaking "$DEP")

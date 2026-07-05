@@ -33,6 +33,7 @@ for (const id of chainIds) {
     merryMenShare: dep.merryMenShare,
     lox: dep.lox,
     bowStaking: dep.bowStaking,
+    feeSplitter: dep.feeSplitter,
   };
 
   const list = [
