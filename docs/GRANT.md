@@ -94,7 +94,8 @@ signature arrow-flight interaction), liquidity add/remove with live APR,
 the Merry Men's Share dashboard (eligibility checklist, epoch ledger,
 permissionless finalize, one-click claim), $LOX staking, and analytics
 (TVL/volume/per-pool, computed from on-chain events — no indexer
-dependency). 40 Foundry tests across all money paths.
+dependency). 44 Foundry tests across all money paths, including proofs that
+Hoards stay invariant under stock-token corporate actions (ERC-8056).
 
 ## 4. Roadmap & use of funds
 
@@ -121,8 +122,8 @@ to audit and mainnet hardening — the product itself is already built.
 - [x] **Public GitHub repo** — https://github.com/mattcrypto12/loxley
 - [ ] **Demo video (~3 min)** — full shot list + narration script ready in
       [DEMO-SCRIPT.md](DEMO-SCRIPT.md); needs a human voice + screen recording.
-- [ ] **Pitch deck (5–8 slides)**: problem → mechanism → live-on-testnet
-      proof → roadmap → team
+- [x] **Pitch deck** — [loxley-pitch-deck.pptx](loxley-pitch-deck.pptx)
+      (7 slides: problem → mechanism → live proof → criteria fit → roadmap)
 - [ ] HackQuest account + Dubai registration (Robinhood Chain track)
 - [ ] Team info: names/handles, contact email, region
 - [x] **Live demo URL**: https://loxley-dex.vercel.app (Vercel, pointed at
