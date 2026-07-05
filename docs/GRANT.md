@@ -111,6 +111,10 @@ to audit and mainnet hardening — the product itself is already built.
 ## 5. Submission checklist
 
 - [x] Deployed on Robinhood Chain testnet (46630)
+- [x] All contracts **source-verified on Blockscout** (per their deploy docs)
+- [x] **Stock-token ready**: ERC-8056 scaled-UI mock + tests proving Hoards
+      are invariant under corporate actions — see
+      [ROBINHOOD-CHAIN.md](ROBINHOOD-CHAIN.md)
 - [x] Public demo runnable end-to-end (local + testnet)
 - [x] Contract tests (40) green
 - [x] LICENSE (GPL-3.0), disclaimer, no Robinhood Markets trademarks used
