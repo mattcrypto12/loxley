@@ -4,10 +4,12 @@ pragma solidity ^0.8.24;
 import {Test} from "forge-std/Test.sol";
 import {MerryMenShare} from "../src/MerryMenShare.sol";
 import {MockERC20} from "../src/mocks/MockERC20.sol";
+import {MockHoard, MockHoardFactory} from "../src/mocks/MockHoard.sol";
 
 contract MerryMenShareTest is Test {
     MerryMenShare share;
-    MockERC20 rewardToken; // stands in for a Hoard LP token
+    MockHoard rewardToken; // a registered Hoard LP token
+    MockHoardFactory hoardFactory;
 
     address router = makeAddr("router");
     address poor1 = makeAddr("poor1");
@@ -19,7 +21,10 @@ contract MerryMenShareTest is Test {
     function setUp() public {
         share = new MerryMenShare(THRESHOLD);
         share.setRouter(router);
-        rewardToken = new MockERC20("Hoard LP", "HOARD", 18);
+        hoardFactory = new MockHoardFactory();
+        share.setFactory(address(hoardFactory));
+        rewardToken = new MockHoard(makeAddr("tokenA"), makeAddr("tokenB"));
+        hoardFactory.register(rewardToken);
         vm.deal(rich, 100 ether); // above threshold => ineligible
         vm.deal(poor1, 0.5 ether);
         vm.deal(poor2, 0.1 ether);
@@ -179,6 +184,37 @@ contract MerryMenShareTest is Test {
         // rich pending = 0
         (, uint256[] memory richAmounts) = share.pendingSpoils(rich, 0);
         assertEq(richAmounts[0], 0);
+    }
+
+    function test_finalize_rejectsNonHoardTokens() public {
+        _act(poor1, 1);
+        MockERC20 fake = new MockERC20("Evil", "EVIL", 18);
+        fake.mint(address(share), 100e18);
+        vm.warp(share.epochEnd(0));
+        address[] memory tokens = new address[](1);
+        tokens[0] = address(fake);
+        vm.expectRevert(bytes("MerryMen: NOT_HOARD"));
+        share.finalizeEpoch(0, tokens);
+    }
+
+    function test_finalize_rejectsUnregisteredHoardLookalike() public {
+        _act(poor1, 1);
+        // has token0/token1 but the factory never created it
+        MockHoard impostor = new MockHoard(makeAddr("x"), makeAddr("y"));
+        impostor.mint(address(share), 100e18);
+        vm.warp(share.epochEnd(0));
+        address[] memory tokens = new address[](1);
+        tokens[0] = address(impostor);
+        vm.expectRevert(bytes("MerryMen: NOT_HOARD"));
+        share.finalizeEpoch(0, tokens);
+    }
+
+    function test_finalize_capsTokenListLength() public {
+        _act(poor1, 1);
+        vm.warp(share.epochEnd(0));
+        address[] memory tokens = new address[](17);
+        vm.expectRevert(bytes("MerryMen: TOO_MANY_TOKENS"));
+        share.finalizeEpoch(0, tokens);
     }
 
     function test_wealthThreshold_adjustable() public {

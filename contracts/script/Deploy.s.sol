@@ -33,6 +33,7 @@ contract Deploy is Script {
 
         // wire the fee redistribution loop
         share.setRouter(address(router));
+        share.setFactory(address(factory)); // only real Hoard LP as rewards
         router.setMerryMenShare(address(share));
         factory.setFeeTo(address(share));
 

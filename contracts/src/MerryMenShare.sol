@@ -6,6 +6,15 @@ interface IERC20Like {
     function transfer(address to, uint256 value) external returns (bool);
 }
 
+interface IHoardLike {
+    function token0() external view returns (address);
+    function token1() external view returns (address);
+}
+
+interface IFactoryLike {
+    function getHoard(address, address) external view returns (address);
+}
+
 /// @title MerryMenShare — the Merry Men's Share
 /// @notice The redistribution treasury. It is set as the factory's `feeTo`,
 ///         so every Hoard mints it LP tokens worth 0.05% of swap volume
@@ -33,8 +42,11 @@ contract MerryMenShare {
 
     address public owner;
     address public router; // the only address allowed to record activity
+    address public factory; // only its Hoards' LP tokens can be reward tokens
     uint256 public immutable genesis;
     uint256 public wealthThreshold; // max ETH balance (wei) to count as "poor"
+
+    uint256 public constant MAX_EPOCH_TOKENS = 16; // bounds claim() gas
 
     // ---- activity ----
     mapping(address => uint256) public lastActive;
@@ -73,6 +85,11 @@ contract MerryMenShare {
         require(router == address(0), "MerryMen: ROUTER_SET");
         router = _router;
         emit RouterSet(_router);
+    }
+
+    function setFactory(address _factory) external onlyOwner {
+        require(factory == address(0), "MerryMen: FACTORY_SET");
+        factory = _factory;
     }
 
     function setWealthThreshold(uint256 _threshold) external onlyOwner {
@@ -133,18 +150,38 @@ contract MerryMenShare {
 
     // ---- epoch lifecycle (permissionless) ----
 
-    /// @notice Lock in the spoils for a finished epoch. Anyone may call.
+    /// @dev A reward token must be an LP token of a Hoard this factory
+    ///      actually created. Blocks malicious finalizers from injecting
+    ///      tokens that revert on transfer (which would brick claims) or
+    ///      stuffing the list to grief claim() gas.
+    function _isHoard(address token) internal view returns (bool) {
+        if (factory == address(0)) return false;
+        try IHoardLike(token).token0() returns (address t0) {
+            try IHoardLike(token).token1() returns (address t1) {
+                return IFactoryLike(factory).getHoard(t0, t1) == token;
+            } catch {
+                return false;
+            }
+        } catch {
+            return false;
+        }
+    }
+
+    /// @notice Lock in the spoils for a finished epoch. Anyone may call;
+    ///         only genuine Hoard LP tokens are accepted as rewards.
     /// @param epoch  epoch to finalize (must have ended)
-    /// @param tokens reward tokens to allocate (typically Hoard LP tokens)
+    /// @param tokens reward tokens to allocate (Hoard LP tokens only)
     function finalizeEpoch(uint256 epoch, address[] calldata tokens) external {
         require(block.timestamp >= epochEnd(epoch), "MerryMen: EPOCH_NOT_OVER");
         require(!finalized[epoch], "MerryMen: FINALIZED");
+        require(tokens.length <= MAX_EPOCH_TOKENS, "MerryMen: TOO_MANY_TOKENS");
         finalized[epoch] = true;
 
         uint256[] memory amounts = new uint256[](tokens.length);
         if (totalPoints[epoch] > 0) {
             for (uint256 i; i < tokens.length; i++) {
                 address token = tokens[i];
+                require(_isHoard(token), "MerryMen: NOT_HOARD");
                 require(allocations[epoch][token] == 0, "MerryMen: DUP_TOKEN");
                 uint256 available = IERC20Like(token).balanceOf(address(this)) - reserved[token];
                 if (available > 0) {
