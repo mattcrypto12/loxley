@@ -114,7 +114,7 @@ to audit and mainnet hardening — the product itself is already built.
 - [x] Public demo runnable end-to-end (local + testnet)
 - [x] Contract tests (40) green
 - [x] LICENSE (GPL-3.0), disclaimer, no Robinhood Markets trademarks used
-- [ ] **Public GitHub repo** — ready to push; needs a `git push` to a public repo
+- [x] **Public GitHub repo** — https://github.com/mattcrypto12/loxley
 - [ ] **Demo video (~3 min)**: swap with arrow-flight → Hoards add-liquidity →
       Merry Men's Share claim → analytics. Record at 1600×900, dev demo chain.
 - [ ] **Pitch deck (5–8 slides)**: problem → mechanism → live-on-testnet
