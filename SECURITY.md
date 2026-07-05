@@ -71,8 +71,9 @@ design, same shape as Uniswap v2 itself):
 4. **Admin keys.** `feeToSetter`, treasury owner, and LOX owner are EOAs
    pre-launch. Mainnet plan: timelock + multisig, then progressive
    renouncement.
-5. **The deployed testnet instance (46630) predates the `_isHoard` fix**
-   and will be redeployed; testnet funds are valueless by definition.
+5. **The live testnet deployment (46630) includes the `_isHoard` fix**
+   (redeployed 2026-07-05; `factory()` wired, `MAX_EPOCH_TOKENS = 16`
+   readable on-chain).
 
 ## The path to "as close to guaranteed as this industry gets"
 

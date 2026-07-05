@@ -4,9 +4,9 @@ The flagship DEX for **Robinhood Chain** (Arbitrum Orbit L2).
 *Steal the spread, share the spoils.*
 
 **Live on Robinhood Chain testnet (chainId 46630)** — verify on the
-[explorer](https://explorer.testnet.chain.robinhood.com/address/0xc1B3d94b980F83De0909cf7BB7da833aCfC56720):
-router `0xc1B3d94b980F83De0909cf7BB7da833aCfC56720`, factory
-`0xbA2717Be7ad661B5582d9050735d85Dec043225F`, full address set in
+[explorer](https://explorer.testnet.chain.robinhood.com/address/0xD76e7a2A8B3c06D62b3F57622a15b9F27945CEA2):
+router `0xD76e7a2A8B3c06D62b3F57622a15b9F27945CEA2`, factory
+`0x9CbDE27ACEdd5DDd4BC7A152247BeB929C1144F7`, full address set in
 [docs/GRANT.md](docs/GRANT.md).
 
 Loxley is themed on the public-domain legend of Robin of Loxley and is not

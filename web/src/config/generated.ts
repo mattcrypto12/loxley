@@ -7,12 +7,12 @@ import type { Deployment, TokenInfo } from "./deployments";
 export const GENERATED_DEPLOYMENTS: Record<number, Deployment> =
   {
   "46630": {
-    "weth": "0xE8F8BaB71197A18DeF27799fb9295f142897156c",
-    "factory": "0xbA2717Be7ad661B5582d9050735d85Dec043225F",
-    "router": "0xc1B3d94b980F83De0909cf7BB7da833aCfC56720",
-    "merryMenShare": "0xEC81858FaB25e9C5C081777B9243E68E5Bc7f6F5",
-    "lox": "0x6662Fb018E2f92ccA89B30C5c223004455b746CE",
-    "bowStaking": "0x06F140568bE0f5eb7B562dd3ebBf037F6B95E9f5"
+    "weth": "0x1C61880f2F4ce64EaD62a347ECAEA39508b68544",
+    "factory": "0x9CbDE27ACEdd5DDd4BC7A152247BeB929C1144F7",
+    "router": "0xD76e7a2A8B3c06D62b3F57622a15b9F27945CEA2",
+    "merryMenShare": "0xf1553459b978Aa8c9B85b0769dB3b3D8D2AD1356",
+    "lox": "0x5355Ca93a24821bc77ee6d19DAF29219328afBc6",
+    "bowStaking": "0xb274cf9770D87cb5c1D3DcAc0495D14814EbB809"
   }
 } as unknown as Record<number, Deployment>;
 
@@ -27,31 +27,31 @@ export const GENERATED_TOKEN_LISTS: Record<number, TokenInfo[]> =
       "isNative": true
     },
     {
-      "address": "0xE8F8BaB71197A18DeF27799fb9295f142897156c",
+      "address": "0x1C61880f2F4ce64EaD62a347ECAEA39508b68544",
       "symbol": "WETH",
       "name": "Wrapped Ether",
       "decimals": 18
     },
     {
-      "address": "0x6662Fb018E2f92ccA89B30C5c223004455b746CE",
+      "address": "0x5355Ca93a24821bc77ee6d19DAF29219328afBc6",
       "symbol": "LOX",
       "name": "Loxley",
       "decimals": 18
     },
     {
-      "address": "0x22227d173705b0d861a9fCe889574A915A74d245",
+      "address": "0xd653EeC375170BE7C320E495132d2F44C2d9Aa17",
       "symbol": "GOLD",
       "name": "Marian's Gold",
       "decimals": 18
     },
     {
-      "address": "0x7DEf44ABee99C07fB29aAb96B1Bb9e1DbaA90852",
+      "address": "0xa43776B84b1DF0814795b4AAeD348E8dd47f2F26",
       "symbol": "SILV",
       "name": "Sheriff's Silver",
       "decimals": 6
     },
     {
-      "address": "0xD2420F31daA1Ca4622224e847E34Ea219f6aE464",
+      "address": "0xA0adB5b3d684e2Da1184866575e0aC4F513803fF",
       "symbol": "ALE",
       "name": "Friar's Ale",
       "decimals": 18

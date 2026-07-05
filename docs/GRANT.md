@@ -85,12 +85,12 @@ https://explorer.testnet.chain.robinhood.com
 
 | Contract | Address |
 | --- | --- |
-| LoxleyFactory | `0xbA2717Be7ad661B5582d9050735d85Dec043225F` |
-| GreenwoodRouter | `0xc1B3d94b980F83De0909cf7BB7da833aCfC56720` |
-| MerryMenShare | `0xEC81858FaB25e9C5C081777B9243E68E5Bc7f6F5` |
-| LoxToken ($LOX) | `0x6662Fb018E2f92ccA89B30C5c223004455b746CE` |
-| BowStaking | `0x06F140568bE0f5eb7B562dd3ebBf037F6B95E9f5` |
-| WETH (test) | `0xE8F8BaB71197A18DeF27799fb9295f142897156c` |
+| LoxleyFactory | `0x9CbDE27ACEdd5DDd4BC7A152247BeB929C1144F7` |
+| GreenwoodRouter | `0xD76e7a2A8B3c06D62b3F57622a15b9F27945CEA2` |
+| MerryMenShare | `0xf1553459b978Aa8c9B85b0769dB3b3D8D2AD1356` |
+| LoxToken ($LOX) | `0x5355Ca93a24821bc77ee6d19DAF29219328afBc6` |
+| BowStaking | `0xb274cf9770D87cb5c1D3DcAc0495D14814EbB809` |
+| WETH (test) | `0x1C61880f2F4ce64EaD62a347ECAEA39508b68544` |
 
 Four seeded pools (ETH/GOLD, ETH/SILV, ETH/LOX, GOLD/SILV); the treasury is
 already accruing fee LP from real swaps. Wallet flow tested end-to-end with
