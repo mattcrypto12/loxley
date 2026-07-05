@@ -15,33 +15,40 @@ city-branded online buildathons + in-person Founder Houses:
 | Stop | Status (as of Jul 4, 2026) | Notes |
 | --- | --- | --- |
 | New York | ✅ concluded | Buildathon winners paid; $340K Founder House done |
-| London | ✅ buildathon ended | $415K total pool; Founder House follows the buildathon |
-| **Dubai** | 🟢 **REGISTRATION OPEN — ~118 days left** | Online, 3-week buildathon, HackQuest platform |
+| London | ✅ buildathon ended | $415K total; Robinhood-exclusive prizes appeared when its cycle spun up |
+| **Dubai** | 🟡 **Page live, early stage** | $30K posted, prize breakdown "TBD", status "UnOpen", ~153-day register countdown |
 | Singapore | ⏳ later in 2026 | Announced, not yet open |
 
-**Live application URL: https://arbitrum-dubai.hackquest.io/**
+**Application URL: https://arbitrum-dubai.hackquest.io/**
 
-### Why the Robinhood Chain track favors us
-- Reserved podium spots: at least one top-3 slot in the main categories is
-  reserved for projects building on Robinhood Chain.
-- Exclusive prizes (based on London's structure): **Robinhood Innovation
-  Award ($30K)** and **Robinhood Founder-in-Residence ($60K)** are open
-  *only* to Robinhood Chain projects.
+### The Robinhood connection — precisely stated
+- **Program-wide (confirmed by Robinhood):** "$1 million of prizes for
+  builders, backing teams building on the Robinhood Chain testnet, across
+  New York, London, Singapore, and Dubai."
+- **Dubai page today:** no tracks published yet, no Robinhood mention,
+  breakdown TBD. London's page followed the same arc — bare at first, then
+  gained a Robinhood track with exclusive prizes (**$30K Innovation Award**,
+  **$60K Founder-in-Residence** at the Founder House stage). Expect (but do
+  not assume) the same for Dubai; re-check the page as the event nears.
 - Judging criteria (from NYC winners' announcement): *technical execution,
-  product clarity, ecosystem alignment, long-term potential* — plus "clear
-  user focus, promising architecture, concise roadmap."
+  product clarity, ecosystem alignment, long-term potential*. Building on
+  Robinhood Chain testnet is the alignment story whatever the track names
+  turn out to be.
 
 ### Application steps (HackQuest)
 1. Create a HackQuest account (email or wallet login) at the Dubai URL above.
-2. Register for "Arbitrum Open House Dubai: Online Buildathon" and select
-   the **Robinhood Chain track**.
-3. Form/register the team (solo is allowed on HackQuest; teams typically 1–5).
-4. Build during the 3-week window (Loxley is already built and deployed —
+2. Register/enroll for "Arbitrum Open House Dubai: Online Buildathon"
+   (if full registration is gated while status is "UnOpen", enroll and
+   watch for it to open).
+3. When tracks are published, pick the Robinhood Chain track if one exists;
+   otherwise DeFi/Open — the project's chain speaks for itself.
+4. Form/register the team (solo is allowed on HackQuest; teams typically 1–5).
+5. Build during the buildathon window (Loxley is already built and deployed —
    the window is for polish + the required artifacts).
-5. Submit before the deadline: project profile, **public GitHub repo**,
+6. Submit before the deadline: project profile, **public GitHub repo**,
    **demo video (~3 min)**, live demo URL, deployed contract addresses on
    Robinhood Chain testnet, and a short pitch deck.
-6. Judging → winners; strong teams get invited toward Founder House /
+7. Judging → winners; strong teams get invited toward Founder House /
    Arbitrum Foundation case-by-case grants ($30K USDC reserved per stop).
 
 ---
