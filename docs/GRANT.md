@@ -21,6 +21,14 @@ city-branded online buildathons + in-person Founder Houses:
 
 **Application URL: https://arbitrum-dubai.hackquest.io/**
 
+### Other live funding (verified Jul 5, 2026 — primary sources)
+| Program | What | Apply |
+| --- | --- | --- |
+| **Arbitrum Audit Program** | $10M ARB / 12 mo subsidizing third-party audits; early-stage + Arbitrum-tech chains eligible; rolling review | https://tally.so/r/3xzEzv |
+| **ArbiFuel** | Gas-fee sponsorship for early-stage builders | https://airtable.com/appzb4GfqGfrnDXjW/shrulGIIp6l6ezAlt |
+| ~~Foundation general grants~~ | **"Program Complete"** — the old $150K Orbit track is closed | — |
+| ~~Questbook DAO grants S3~~ | Season ended March 2026 | — |
+
 ### The Robinhood connection — precisely stated
 - **Program-wide (confirmed by Robinhood):** "$1 million of prizes for
   builders, backing teams building on the Robinhood Chain testnet, across
