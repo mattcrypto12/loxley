@@ -13,6 +13,13 @@ Loxley is themed on the public-domain legend of Robin of Loxley and is not
 affiliated with Robinhood Markets, Inc. **Contracts are unaudited — testnet
 and demonstration use only.**
 
+![Swap — steal the spread](docs/media/swap.png)
+
+<p align="center">
+  <img src="docs/media/share.png" width="49%" alt="The Merry Men's Share — fee redistribution dashboard" />
+  <img src="docs/media/analytics.png" width="49%" alt="The Ledger — on-chain analytics" />
+</p>
+
 ## What it is
 
 | Legend | Protocol |

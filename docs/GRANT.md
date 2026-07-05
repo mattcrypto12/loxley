@@ -115,8 +115,8 @@ to audit and mainnet hardening — the product itself is already built.
 - [x] Contract tests (40) green
 - [x] LICENSE (GPL-3.0), disclaimer, no Robinhood Markets trademarks used
 - [x] **Public GitHub repo** — https://github.com/mattcrypto12/loxley
-- [ ] **Demo video (~3 min)**: swap with arrow-flight → Hoards add-liquidity →
-      Merry Men's Share claim → analytics. Record at 1600×900, dev demo chain.
+- [ ] **Demo video (~3 min)** — full shot list + narration script ready in
+      [DEMO-SCRIPT.md](DEMO-SCRIPT.md); needs a human voice + screen recording.
 - [ ] **Pitch deck (5–8 slides)**: problem → mechanism → live-on-testnet
       proof → roadmap → team
 - [ ] HackQuest account + Dubai registration (Robinhood Chain track)
