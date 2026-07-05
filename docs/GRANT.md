@@ -125,8 +125,8 @@ to audit and mainnet hardening — the product itself is already built.
       proof → roadmap → team
 - [ ] HackQuest account + Dubai registration (Robinhood Chain track)
 - [ ] Team info: names/handles, contact email, region
-- [ ] (Optional, strong signal) a hosted deployment of the web app
-      (Vercel) pointed at `NEXT_PUBLIC_LOXLEY_NETWORK=robinhoodTestnet`
+- [x] **Live demo URL**: https://loxley-dex.vercel.app (Vercel, pointed at
+      Robinhood Chain testnet)
 
 ## 6. Fine print to keep straight
 
