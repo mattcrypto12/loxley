@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { erc20Abi } from "viem";
 import { useAccount, useReadContracts } from "wagmi";
+import { PlainTerms } from "@/components/PlainTerms";
 import { TokenBadge } from "@/components/TokenBadge";
 import { fmtUsd, fmtPct } from "@/lib/format";
 import { poolTvlUsd, useDeployment, usePools, usePrices } from "@/lib/hooks";
@@ -38,6 +39,17 @@ export default function HoardsPage() {
             0.25% of every swap; the remaining 0.05% is split evenly between
             the Merry Men&apos;s Share and the guild.
           </p>
+          <PlainTerms
+            summary="liquidity pools — each Hoard is a Uniswap-v2-style pair contract."
+            contracts={[{ label: "Factory", key: "factory" }]}
+          >
+            Deposit two tokens in ratio and receive LP tokens representing
+            your share of the pool; swap fees accrue into the reserves, so
+            LP tokens appreciate against withdrawal. &quot;Bury treasure&quot;
+            = add liquidity, &quot;dig it up&quot; = burn LP tokens for the
+            underlying. APR estimates annualize the last 24h of fees against
+            current pool value. Each pool&apos;s address is on its page.
+          </PlainTerms>
         </div>
         <Link href="/hoards/new" className="btn-gold rise-in rise-in-2 px-4 py-2.5 text-sm">
           + Found a new Hoard

@@ -89,3 +89,10 @@ export function explorerTxUrl(chainId: number, hash: string): string | null {
   const base = chain?.blockExplorers?.default?.url;
   return base ? `${base.replace(/\/$/, "")}/tx/${hash}` : null;
 }
+
+/** Explorer URL for an address, or null if the chain has no explorer. */
+export function explorerAddressUrl(chainId: number, address: string): string | null {
+  const chain = SUPPORTED_CHAINS.find((c) => c.id === chainId);
+  const base = chain?.blockExplorers?.default?.url;
+  return base ? `${base.replace(/\/$/, "")}/address/${address}` : null;
+}

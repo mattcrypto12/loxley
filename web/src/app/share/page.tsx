@@ -13,6 +13,7 @@ import {
 } from "wagmi";
 import { merryMenAbi } from "@/abi/merryMen";
 import { pairAbi } from "@/abi/pair";
+import { PlainTerms } from "@/components/PlainTerms";
 import { ShareFlow } from "@/components/ShareFlow";
 import { TokenBadge } from "@/components/TokenBadge";
 import { fmtAmount } from "@/lib/format";
@@ -179,6 +180,25 @@ export default function SharePage() {
           who swapped or provided liquidity in the last 30 days. All of it
           on-chain, all of it inspectable.
         </p>
+        <PlainTerms
+          summary="protocol-fee redistribution with epoch-based claims."
+          contracts={[
+            { label: "MerryMenShare", key: "merryMenShare" },
+            { label: "SpoilsSplitter", key: "feeSplitter" },
+            { label: "Router", key: "router" },
+          ]}
+        >
+          The 0.05% protocol fee arrives as LP tokens and is split 50/50 by
+          an immutable splitter contract: half to this treasury, half to the
+          development treasury. This contract divides its half into 7-day
+          epochs (&quot;ring the bell&quot; = permissionless finalize). A
+          wallet may claim a pro-rata share — weighted by capped activity
+          points the router records on each swap or liquidity action — if it
+          was active in the last 30 days and holds less than the wealth
+          threshold at claim time. Claims pay out LP tokens, redeemable for
+          the underlying assets on any pool page. Unclaimed spoils roll
+          forward after 4 epochs.
+        </PlainTerms>
       </header>
 
       <div className="rise-in rise-in-2">

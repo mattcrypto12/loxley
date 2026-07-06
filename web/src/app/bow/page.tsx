@@ -15,6 +15,7 @@ import {
   useWriteContract,
 } from "wagmi";
 import { bowAbi } from "@/abi/bow";
+import { PlainTerms } from "@/components/PlainTerms";
 import { TokenBadge } from "@/components/TokenBadge";
 import { fmtAmount, parseAmount } from "@/lib/format";
 import { useDeployment } from "@/lib/hooks";
@@ -125,6 +126,21 @@ export default function BowPage() {
           Stake $LOX and hold the tension. Rewards stream by the second;
           loose whenever you like.
         </p>
+        <div className="flex justify-center">
+          <PlainTerms
+            summary="single-token staking with streamed rewards (Synthetix StakingRewards pattern)."
+            contracts={[
+              { label: "BowStaking", key: "bowStaking" },
+              { label: "LOX", key: "lox" },
+            ]}
+          >
+            &quot;Draw the bow&quot; = stake LOX; &quot;ease the string&quot; =
+            unstake; &quot;loose the arrow&quot; = claim rewards. Funded reward
+            periods stream LOX per second to stakers pro-rata; APR annualizes
+            the current stream rate against total staked. No lockups, no
+            penalties — withdraw any time.
+          </PlainTerms>
+        </div>
       </header>
 
       <div className="mb-4 grid grid-cols-3 gap-3">
