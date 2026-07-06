@@ -128,7 +128,7 @@ export default function BowPage() {
       </header>
 
       <div className="mb-4 grid grid-cols-3 gap-3">
-        <Stat label="Total drawn" value={`${fmtAmount(totalStaked, 18)} LOX`} />
+        <Stat label="Total LOX drawn" value={fmtAmount(totalStaked, 18)} />
         <Stat
           label="Stream APR"
           value={
@@ -140,7 +140,7 @@ export default function BowPage() {
           }
           accent
         />
-        <Stat label="Your draw" value={`${fmtAmount(myStake, 18)} LOX`} />
+        <Stat label="Your LOX drawn" value={fmtAmount(myStake, 18)} />
       </div>
 
       <div className="glass p-5">

@@ -19,7 +19,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40">
-      <div className="glass-deep mx-auto mt-4 flex max-w-6xl items-center justify-between gap-4 rounded-2xl px-5 py-3">
+      <div className="glass-deep mx-auto mt-4 flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-2xl px-4 py-3 sm:px-5">
         <Link href="/" className="flex items-center gap-3">
           <Wordmark size={22} />
         </Link>

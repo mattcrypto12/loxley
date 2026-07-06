@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.24;
 
+/// @dev Derived from WETH9 by Dapphub, Copyright (C) 2015-2017 DappHub LLC,
+///      licensed GPL-3.0 — modernized to Solidity 0.8 for tests/demos.
+
 /// @notice Canonical WETH9, modernized to 0.8 — for local/test deployments only.
 contract WETH9 {
     string public name = "Wrapped Ether";

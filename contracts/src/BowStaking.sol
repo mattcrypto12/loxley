@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.24;
 
+/// @dev Reward accounting follows the Synthetix StakingRewards pattern
+///      (Copyright (c) Synthetix, MIT license), reimplemented for 0.8.
+
 interface IERC20S {
     function transfer(address to, uint256 value) external returns (bool);
     function transferFrom(address from, address to, uint256 value) external returns (bool);

@@ -30,13 +30,18 @@ export default function HoardsPage() {
 
   return (
     <div>
-      <header className="mb-8">
-        <h1 className="rise-in engraved text-3xl font-semibold">The Hoards</h1>
-        <p className="rise-in rise-in-1 mt-2 max-w-xl text-sm text-moon-500">
-          Every Hoard is a constant-product pool. Liquidity providers earn
-          0.25% of every swap; the remaining 0.05% is split evenly between
-          the Merry Men&apos;s Share and the guild.
-        </p>
+      <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 className="rise-in engraved text-3xl font-semibold">The Hoards</h1>
+          <p className="rise-in rise-in-1 mt-2 max-w-xl text-sm text-moon-500">
+            Every Hoard is a constant-product pool. Liquidity providers earn
+            0.25% of every swap; the remaining 0.05% is split evenly between
+            the Merry Men&apos;s Share and the guild.
+          </p>
+        </div>
+        <Link href="/hoards/new" className="btn-gold rise-in rise-in-2 px-4 py-2.5 text-sm">
+          + Found a new Hoard
+        </Link>
       </header>
 
       <div className="glass overflow-x-auto">

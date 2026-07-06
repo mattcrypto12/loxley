@@ -1,6 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.24;
 
+/// @dev Derived from Uniswap V2 (UniswapV2Pair.sol), Copyright (C) 2020
+///      Uniswap Labs, licensed GPL-3.0 — ported to Solidity 0.8 with theme
+///      renames; money math unchanged.
+
 import {LoxleyERC20} from "./LoxleyERC20.sol";
 import {ILoxleyFactory} from "./interfaces/ILoxleyFactory.sol";
 

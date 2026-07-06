@@ -48,10 +48,14 @@ export function ConnectControls() {
           whileTap={{ scale: 0.96 }}
           disabled={isPending}
           onClick={() => connect({ connector: demoConnector, chainId: LOCAL_CHAIN_ID })}
-          className="btn-gold px-4 py-2.5 text-sm"
+          className="btn-gold whitespace-nowrap px-3 py-2.5 text-sm sm:px-4"
           title="Pre-funded local wallet — no extension needed"
         >
-          {isPending ? "Entering…" : "Demo wallet"}
+          {isPending ? "Entering…" : (
+            <>
+              Demo<span className="hidden sm:inline"> wallet</span>
+            </>
+          )}
         </motion.button>
       )}
       {/* chain UI lives solely in our ChainSelect pill — RainbowKit only

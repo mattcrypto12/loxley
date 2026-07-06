@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.24;
 
+/// @dev Derived from Uniswap V2 (UniswapV2Factory.sol), Copyright (C) 2020
+///      Uniswap Labs, licensed GPL-3.0.
+
 import {ILoxleyFactory} from "./interfaces/ILoxleyFactory.sol";
 import {LoxleyPair} from "./LoxleyPair.sol";
 

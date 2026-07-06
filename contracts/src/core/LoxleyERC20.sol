@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.24;
 
+/// @dev Derived from Uniswap V2 (UniswapV2ERC20.sol), Copyright (C) 2020
+///      Uniswap Labs, licensed GPL-3.0.
+
 /// @title LoxleyERC20 — LP share token for a Hoard (liquidity pool)
 /// @notice ERC-20 with EIP-2612 permit, minted/burned by the pair itself.
 contract LoxleyERC20 {

@@ -1,6 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.24;
 
+/// @dev Derived from Uniswap V2 (UniswapV2Router02.sol), Copyright (C) 2020
+///      Uniswap Labs, licensed GPL-3.0 — fee-on-transfer variants omitted;
+///      Merry Men activity hooks added.
+
 import {ILoxleyFactory} from "../core/interfaces/ILoxleyFactory.sol";
 import {ILoxleyPair} from "../core/interfaces/ILoxleyPair.sol";
 import {LoxleyLibrary} from "./libraries/LoxleyLibrary.sol";

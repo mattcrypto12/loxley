@@ -115,6 +115,21 @@ Covers: pair math + K invariant (incl. fuzz), protocol-fee mint ≈ 0.05% of
 volume, router slippage/deadline/multi-hop/ETH paths, Merry Men eligibility
 (too-rich, inactive, double-claim, pro-rata, roll-forward), staking streams.
 
+## Licenses & attribution
+
+Loxley is **GPL-3.0** (see [LICENSE](LICENSE)) — required and intended, since
+the AMM core derives from GPL-3.0 code:
+
+- `LoxleyPair`/`LoxleyFactory`/`LoxleyERC20`/`GreenwoodRouter`/`LoxleyLibrary`
+  derive from **Uniswap V2** (© 2020 Uniswap Labs, GPL-3.0), ported to
+  Solidity 0.8; money math unchanged.
+- `WETH9` mock derives from **Dapphub's WETH9** (© 2015–2017 DappHub LLC, GPL-3.0).
+- `BowStaking` follows the **Synthetix StakingRewards** pattern (MIT).
+- `MerryMenShare` and `SpoilsSplitter` are original to this project.
+- Frontend dependencies are MIT/Apache-2.0; fonts via Google Fonts (OFL).
+- The Robin Hood theme uses the public-domain legend only — no Robinhood
+  Markets, Inc. branding, wordmarks, or assets are used anywhere.
+
 ## Honest notes
 
 - The wealth check is an ETH-balance heuristic at claim time; splitting funds
