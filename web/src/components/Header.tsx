@@ -4,14 +4,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Wordmark } from "./Wordmark";
 import { ConnectControls } from "./ConnectControls";
+import { Tip } from "./Tip";
 import { ChainSelect, DeploymentNotice } from "./ChainSelect";
 
 const LINKS = [
-  { href: "/", label: "Swap" },
-  { href: "/hoards", label: "Hoards" },
-  { href: "/share", label: "Merry Men's Share" },
-  { href: "/bow", label: "Draw the Bow" },
-  { href: "/analytics", label: "Analytics" },
+  { href: "/", label: "Swap", tip: "Trade tokens on the AMM." },
+  { href: "/hoards", label: "Hoards", tip: "Liquidity pools — provide two tokens, earn 0.25% of every swap." },
+  {
+    href: "/share",
+    label: "Merry Men's Share",
+    tip: "Protocol-fee redistribution: weekly claims for small, active wallets.",
+  },
+  { href: "/bow", label: "Draw the Bow", tip: "Stake LOX for streamed rewards. No lockups." },
+  { href: "/analytics", label: "Analytics", tip: "TVL, volume, and fees — read straight from on-chain events." },
 ];
 
 export function Header() {
@@ -26,13 +31,14 @@ export function Header() {
 
         <nav className="hidden items-center gap-6 text-[0.92rem] md:flex">
           {LINKS.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className={`nav-link whitespace-nowrap pb-0.5 ${pathname === l.href ? "active" : ""}`}
-            >
-              {l.label}
-            </Link>
+            <Tip key={l.href} tip={l.tip} side="bottom">
+              <Link
+                href={l.href}
+                className={`nav-link whitespace-nowrap pb-0.5 ${pathname === l.href ? "active" : ""}`}
+              >
+                {l.label}
+              </Link>
+            </Tip>
           ))}
         </nav>
 

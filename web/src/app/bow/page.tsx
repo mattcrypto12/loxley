@@ -16,6 +16,7 @@ import {
 } from "wagmi";
 import { bowAbi } from "@/abi/bow";
 import { PlainTerms } from "@/components/PlainTerms";
+import { Tip } from "@/components/Tip";
 import { TokenBadge } from "@/components/TokenBadge";
 import { fmtAmount, parseAmount } from "@/lib/format";
 import { useDeployment } from "@/lib/hooks";
@@ -187,33 +188,37 @@ export default function BowPage() {
         </div>
 
         <div className="mt-3 grid grid-cols-2 gap-3">
-          <motion.button
-            whileTap={{ scale: 0.98 }}
-            className="btn-gold py-3"
-            disabled={!isConnected || !amount || amount === 0n || busy !== null}
-            onClick={stake}
-          >
-            {busy ?? "Draw the bow"}
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.98 }}
-            className="btn-ghost py-3"
-            disabled={!isConnected || !amount || amount === 0n || amount > myStake || busy !== null}
-            onClick={() =>
-              bow &&
-              amount &&
-              run("Easing the string…", () =>
-                writeContractAsync({
-                  address: bow,
-                  abi: bowAbi,
-                  functionName: "withdraw",
-                  args: [amount],
-                }),
-              )
-            }
-          >
-            Ease the string
-          </motion.button>
+          <Tip tip="Stake the entered LOX amount — starts earning streamed rewards immediately. No lockup." block>
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              className="btn-gold w-full py-3"
+              disabled={!isConnected || !amount || amount === 0n || busy !== null}
+              onClick={stake}
+            >
+              {busy ?? "Draw the bow"}
+            </motion.button>
+          </Tip>
+          <Tip tip="Unstake the entered LOX amount back to your wallet — no penalty, rewards keep whatever you've accrued." block>
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              className="btn-ghost w-full py-3"
+              disabled={!isConnected || !amount || amount === 0n || amount > myStake || busy !== null}
+              onClick={() =>
+                bow &&
+                amount &&
+                run("Easing the string…", () =>
+                  writeContractAsync({
+                    address: bow,
+                    abi: bowAbi,
+                    functionName: "withdraw",
+                    args: [amount],
+                  }),
+                )
+              }
+            >
+              Ease the string
+            </motion.button>
+          </Tip>
         </div>
 
         <div className="mt-4 flex items-center justify-between rounded-xl bg-forest-950/50 px-4 py-3">
@@ -221,23 +226,25 @@ export default function BowPage() {
             <p className="text-xs text-moon-700">Accrued rewards</p>
             <p className="font-mono text-lg text-gold-400">{fmtAmount(earned, 18)} LOX</p>
           </div>
-          <motion.button
-            whileTap={{ scale: 0.96 }}
-            className="btn-ghost px-4 py-2 text-sm"
-            disabled={!isConnected || earned === 0n || busy !== null}
-            onClick={() =>
-              bow &&
-              run("Loosing…", () =>
-                writeContractAsync({
-                  address: bow,
-                  abi: bowAbi,
-                  functionName: "getReward",
-                }),
-              )
-            }
-          >
-            Loose the arrow
-          </motion.button>
+          <Tip tip="Claim your accrued LOX rewards to your wallet. Your stake stays put." side="top">
+            <motion.button
+              whileTap={{ scale: 0.96 }}
+              className="btn-ghost px-4 py-2 text-sm"
+              disabled={!isConnected || earned === 0n || busy !== null}
+              onClick={() =>
+                bow &&
+                run("Loosing…", () =>
+                  writeContractAsync({
+                    address: bow,
+                    abi: bowAbi,
+                    functionName: "getReward",
+                  }),
+                )
+              }
+            >
+              Loose the arrow
+            </motion.button>
+          </Tip>
         </div>
 
         {error && (

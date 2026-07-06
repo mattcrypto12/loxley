@@ -21,6 +21,7 @@ import { usePools, usePrices, useDeployment, useTokens } from "@/lib/hooks";
 import { applySlippage, deadlineFromNow, erc20Address, quoteSwap } from "@/lib/swap";
 import { playThunk } from "@/lib/sound";
 import { GoldLeafBurst } from "./GoldLeafBurst";
+import { Tip } from "./Tip";
 import { TokenSelect } from "./TokenSelect";
 
 type Phase = "idle" | "approving" | "loosing" | "flying";
@@ -291,14 +292,16 @@ export function SwapCard() {
           <h2 className="engraved text-sm tracking-[0.22em] text-moon-300">
             STEAL THE SPREAD
           </h2>
-          <button
-            type="button"
-            onClick={() => setShowSettings((v) => !v)}
-            className={`btn-ghost px-2.5 py-1.5 text-xs ${showSettings ? "text-gold-400" : ""}`}
-            aria-label="Swap settings"
-          >
-            {slippageBps / 100}% ⚙
-          </button>
+          <Tip tip="Slippage tolerance and transaction deadline — your swap reverts rather than accept a worse price or a stale execution." side="bottom">
+            <button
+              type="button"
+              onClick={() => setShowSettings((v) => !v)}
+              className={`btn-ghost px-2.5 py-1.5 text-xs ${showSettings ? "text-gold-400" : ""}`}
+              aria-label="Swap settings"
+            >
+              {slippageBps / 100}% ⚙
+            </button>
+          </Tip>
         </div>
 
         <AnimatePresence>
@@ -347,10 +350,12 @@ export function SwapCard() {
           <div className="mb-1 flex items-center justify-between text-xs text-moon-500">
             <span>You pay</span>
             {balanceIn !== undefined && tIn && (
-              <button type="button" onClick={setMax} className="hover:text-gold-400">
-                Purse: {fmtAmount(balanceIn, tIn.decimals)} {tIn.symbol}
-                <span className="ml-1 text-gold-500">MAX</span>
-              </button>
+              <Tip tip="Fill with your full balance (for ETH, a little is kept back for gas)." side="bottom">
+                <button type="button" onClick={setMax} className="hover:text-gold-400">
+                  Purse: {fmtAmount(balanceIn, tIn.decimals)} {tIn.symbol}
+                  <span className="ml-1 text-gold-500">MAX</span>
+                </button>
+              </Tip>
             )}
           </div>
           <div className="flex items-center gap-3">
@@ -378,6 +383,7 @@ export function SwapCard() {
 
         {/* flip */}
         <div className="relative z-10 -my-3 flex justify-center">
+          <Tip tip="Reverse direction — pay with what you were receiving.">
           <motion.button
             type="button"
             onClick={flip}
@@ -397,6 +403,7 @@ export function SwapCard() {
               />
             </svg>
           </motion.button>
+          </Tip>
         </div>
 
         {/* YOU RECEIVE */}
@@ -512,17 +519,22 @@ export function SwapCard() {
         )}
 
         {/* CTA */}
-        <motion.button
-          type="button"
-          whileHover={disabled ? undefined : { scale: 1.015 }}
-          whileTap={disabled ? undefined : { scale: 0.985 }}
-          transition={spring}
-          disabled={disabled}
-          onClick={loose}
-          className="btn-gold mt-4 w-full py-3.5 text-[0.95rem]"
+        <Tip
+          tip="Executes the swap on-chain (with a one-time token approval first if needed), protected by your slippage and deadline settings."
+          block
         >
-          {cta}
-        </motion.button>
+          <motion.button
+            type="button"
+            whileHover={disabled ? undefined : { scale: 1.015 }}
+            whileTap={disabled ? undefined : { scale: 0.985 }}
+            transition={spring}
+            disabled={disabled}
+            onClick={loose}
+            className="btn-gold mt-4 w-full py-3.5 text-[0.95rem]"
+          >
+            {cta}
+          </motion.button>
+        </Tip>
 
         {/* the loosed arrow */}
         <AnimatePresence>

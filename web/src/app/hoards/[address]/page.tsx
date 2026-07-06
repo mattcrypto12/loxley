@@ -19,6 +19,7 @@ import {
 } from "wagmi";
 import { routerAbi } from "@/abi/router";
 import { pairAbi } from "@/abi/pair";
+import { Tip } from "@/components/Tip";
 import { TokenBadge } from "@/components/TokenBadge";
 import { fmtAmount, fmtUsd, parseAmount } from "@/lib/format";
 import { poolTvlUsd, useDeployment, usePools, usePrices } from "@/lib/hooks";
@@ -329,18 +330,27 @@ export default function HoardDetailPage() {
         {/* tabs */}
         <div className="mb-5 flex gap-2">
           {(["add", "remove"] as const).map((t) => (
-            <button
+            <Tip
               key={t}
-              type="button"
-              onClick={() => setTab(t)}
-              className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
-                tab === t
-                  ? "bg-gold-500/15 text-gold-300 ring-1 ring-gold-500/40"
-                  : "text-moon-500 hover:text-moon-100"
-              }`}
+              tip={
+                t === "add"
+                  ? "Add liquidity: deposit both tokens in ratio, receive LP tokens representing your pool share."
+                  : "Remove liquidity: burn LP tokens, withdraw your share of both tokens (fees included)."
+              }
+              side="bottom"
             >
-              {t === "add" ? "Bury treasure" : "Dig it up"}
-            </button>
+              <button
+                type="button"
+                onClick={() => setTab(t)}
+                className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
+                  tab === t
+                    ? "bg-gold-500/15 text-gold-300 ring-1 ring-gold-500/40"
+                    : "text-moon-500 hover:text-moon-100"
+                }`}
+              >
+                {t === "add" ? "Bury treasure" : "Dig it up"}
+              </button>
+            </Tip>
           ))}
         </div>
 
@@ -392,23 +402,28 @@ export default function HoardDetailPage() {
               );
             })}
 
-            <motion.button
-              type="button"
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              transition={spring}
-              className="btn-gold w-full py-3.5"
-              disabled={
-                !isConnected ||
-                busy !== null ||
-                effective.a0 === null ||
-                effective.a1 === null ||
-                effective.a0 === 0n
-              }
-              onClick={addLiquidity}
+            <Tip
+              tip="Sends the add-liquidity transaction (with a token approval first if needed). You receive LP tokens for your share."
+              block
             >
-              {busy ?? (isConnected ? "Bury treasure" : "Connect to provide")}
-            </motion.button>
+              <motion.button
+                type="button"
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                transition={spring}
+                className="btn-gold w-full py-3.5"
+                disabled={
+                  !isConnected ||
+                  busy !== null ||
+                  effective.a0 === null ||
+                  effective.a1 === null ||
+                  effective.a0 === 0n
+                }
+                onClick={addLiquidity}
+              >
+                {busy ?? (isConnected ? "Bury treasure" : "Connect to provide")}
+              </motion.button>
+            </Tip>
           </div>
         ) : (
           <div className="space-y-4">
@@ -463,25 +478,30 @@ export default function HoardDetailPage() {
               )}
             </div>
 
-            <motion.button
-              type="button"
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              transition={spring}
-              className="btn-gold w-full py-3.5"
-              disabled={
-                !isConnected ||
-                busy !== null ||
-                lpBalance === undefined ||
-                (lpBalance as bigint) === 0n
-              }
-              onClick={removeLiquidity}
+            <Tip
+              tip="Burns the selected share of your LP tokens and withdraws both tokens to your wallet (accrued fees included)."
+              block
             >
-              {busy ??
-                (lpBalance !== undefined && (lpBalance as bigint) > 0n
-                  ? "Dig it up"
-                  : "No buried treasure here")}
-            </motion.button>
+              <motion.button
+                type="button"
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                transition={spring}
+                className="btn-gold w-full py-3.5"
+                disabled={
+                  !isConnected ||
+                  busy !== null ||
+                  lpBalance === undefined ||
+                  (lpBalance as bigint) === 0n
+                }
+                onClick={removeLiquidity}
+              >
+                {busy ??
+                  (lpBalance !== undefined && (lpBalance as bigint) > 0n
+                    ? "Dig it up"
+                    : "No buried treasure here")}
+              </motion.button>
+            </Tip>
           </div>
         )}
 

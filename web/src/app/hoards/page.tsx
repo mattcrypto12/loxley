@@ -5,6 +5,7 @@ import Link from "next/link";
 import { erc20Abi } from "viem";
 import { useAccount, useReadContracts } from "wagmi";
 import { PlainTerms } from "@/components/PlainTerms";
+import { Tip } from "@/components/Tip";
 import { TokenBadge } from "@/components/TokenBadge";
 import { fmtUsd, fmtPct } from "@/lib/format";
 import { poolTvlUsd, useDeployment, usePools, usePrices } from "@/lib/hooks";
@@ -51,9 +52,11 @@ export default function HoardsPage() {
             current pool value. Each pool&apos;s address is on its page.
           </PlainTerms>
         </div>
-        <Link href="/hoards/new" className="btn-gold rise-in rise-in-2 px-4 py-2.5 text-sm">
-          + Found a new Hoard
-        </Link>
+        <Tip tip="Create a new liquidity pool for any two tokens — your first deposit sets the opening price." side="bottom">
+          <Link href="/hoards/new" className="btn-gold rise-in rise-in-2 px-4 py-2.5 text-sm">
+            + Found a new Hoard
+          </Link>
+        </Tip>
       </header>
 
       <div className="glass overflow-x-auto">
@@ -123,12 +126,14 @@ export default function HoardsPage() {
                     {shareOfPool > 0 ? fmtPct(shareOfPool) : "—"}
                   </td>
                   <td className="px-5 py-4 text-right">
-                    <Link
-                      href={`/hoards/${pool.address}`}
-                      className="btn-ghost inline-block px-3.5 py-1.5 text-xs"
-                    >
-                      Manage
-                    </Link>
+                    <Tip tip="Open this pool: add or remove liquidity, see reserves and your position.">
+                      <Link
+                        href={`/hoards/${pool.address}`}
+                        className="btn-ghost inline-block px-3.5 py-1.5 text-xs"
+                      >
+                        Manage
+                      </Link>
+                    </Tip>
                   </td>
                 </motion.tr>
               );

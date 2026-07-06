@@ -15,6 +15,7 @@ import { merryMenAbi } from "@/abi/merryMen";
 import { pairAbi } from "@/abi/pair";
 import { PlainTerms } from "@/components/PlainTerms";
 import { ShareFlow } from "@/components/ShareFlow";
+import { Tip } from "@/components/Tip";
 import { TokenBadge } from "@/components/TokenBadge";
 import { fmtAmount } from "@/lib/format";
 import { useDeployment, usePools } from "@/lib/hooks";
@@ -341,46 +342,50 @@ export default function SharePage() {
                   </td>
                   <td className="px-5 py-4 text-right">
                     {!isCurrent && !e.finalized && share && pools && (
-                      <motion.button
-                        whileTap={{ scale: 0.96 }}
-                        className="btn-ghost px-3 py-1.5 text-xs"
-                        disabled={busy !== null}
-                        onClick={() =>
-                          act(
-                            () =>
-                              writeContractAsync({
-                                address: share,
-                                abi: merryMenAbi,
-                                functionName: "finalizeEpoch",
-                                args: [e.id, pools.map((p) => p.address)],
-                              }),
-                            `Epoch ${e.id} finalized`,
-                          )
-                        }
-                      >
-                        Ring the bell
-                      </motion.button>
+                      <Tip tip="Finalize this ended epoch (anyone may call): locks in reward allocations so eligible wallets can claim.">
+                        <motion.button
+                          whileTap={{ scale: 0.96 }}
+                          className="btn-ghost px-3 py-1.5 text-xs"
+                          disabled={busy !== null}
+                          onClick={() =>
+                            act(
+                              () =>
+                                writeContractAsync({
+                                  address: share,
+                                  abi: merryMenAbi,
+                                  functionName: "finalizeEpoch",
+                                  args: [e.id, pools.map((p) => p.address)],
+                                }),
+                              `Epoch ${e.id} finalized`,
+                            )
+                          }
+                        >
+                          Ring the bell
+                        </motion.button>
+                      </Tip>
                     )}
                     {claimable && share && (
-                      <motion.button
-                        whileTap={{ scale: 0.96 }}
-                        className="btn-gold px-3.5 py-1.5 text-xs"
-                        disabled={busy !== null}
-                        onClick={() =>
-                          act(
-                            () =>
-                              writeContractAsync({
-                                address: share,
-                                abi: merryMenAbi,
-                                functionName: "claim",
-                                args: [e.id],
-                              }),
-                            `Epoch ${e.id} spoils claimed`,
-                          )
-                        }
-                      >
-                        Claim your cut
-                      </motion.button>
+                      <Tip tip="Claim your pro-rata share of this epoch's rewards, paid in LP tokens (redeemable on any pool page). Requires activity in the last 30 days and a balance under the wealth threshold.">
+                        <motion.button
+                          whileTap={{ scale: 0.96 }}
+                          className="btn-gold px-3.5 py-1.5 text-xs"
+                          disabled={busy !== null}
+                          onClick={() =>
+                            act(
+                              () =>
+                                writeContractAsync({
+                                  address: share,
+                                  abi: merryMenAbi,
+                                  functionName: "claim",
+                                  args: [e.id],
+                                }),
+                              `Epoch ${e.id} spoils claimed`,
+                            )
+                          }
+                        >
+                          Claim your cut
+                        </motion.button>
+                      </Tip>
                     )}
                   </td>
                 </tr>

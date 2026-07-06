@@ -13,6 +13,7 @@ import {
   useWriteContract,
 } from "wagmi";
 import { routerAbi } from "@/abi/router";
+import { Tip } from "@/components/Tip";
 import { TokenSelect } from "@/components/TokenSelect";
 import { fmtAmount, parseAmount } from "@/lib/format";
 import { useDeployment, usePools, useTokens } from "@/lib/hooks";
@@ -262,22 +263,27 @@ export default function NewHoardPage() {
           </p>
         )}
 
-        <motion.button
-          type="button"
-          whileHover={disabled ? undefined : { scale: 1.01 }}
-          whileTap={disabled ? undefined : { scale: 0.99 }}
-          transition={spring}
-          className="btn-gold mt-4 w-full py-3.5"
-          disabled={disabled}
-          onClick={foundHoard}
+        <Tip
+          tip="Creates the pool and deposits your opening liquidity in one transaction (token approvals first if needed)."
+          block
         >
-          {busy ??
-            (!isConnected
-              ? "Connect to found a Hoard"
-              : existing
-                ? "Hoard already exists"
-                : "Found the Hoard")}
-        </motion.button>
+          <motion.button
+            type="button"
+            whileHover={disabled ? undefined : { scale: 1.01 }}
+            whileTap={disabled ? undefined : { scale: 0.99 }}
+            transition={spring}
+            className="btn-gold mt-4 w-full py-3.5"
+            disabled={disabled}
+            onClick={foundHoard}
+          >
+            {busy ??
+              (!isConnected
+                ? "Connect to found a Hoard"
+                : existing
+                  ? "Hoard already exists"
+                  : "Found the Hoard")}
+          </motion.button>
+        </Tip>
       </div>
     </div>
   );

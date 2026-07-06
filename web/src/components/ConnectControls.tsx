@@ -4,6 +4,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { motion } from "framer-motion";
 import { useAccount, useChainId, useConnect, useDisconnect } from "wagmi";
 import { LOCAL_CHAIN_ID } from "@/config/chains";
+import { Tip } from "./Tip";
 
 function short(addr?: string) {
   return addr ? `${addr.slice(0, 6)}…${addr.slice(-4)}` : "";
@@ -43,20 +44,24 @@ export function ConnectControls() {
   return (
     <div className="flex items-center gap-2">
       {showDemo && (
-        <motion.button
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.96 }}
-          disabled={isPending}
-          onClick={() => connect({ connector: demoConnector, chainId: LOCAL_CHAIN_ID })}
-          className="btn-gold whitespace-nowrap px-3 py-2.5 text-sm sm:px-4"
-          title="Pre-funded local wallet — no extension needed"
+        <Tip
+          tip="Connect a pre-funded local test wallet — no browser extension needed. Local demo chain only."
+          side="bottom"
         >
-          {isPending ? "Entering…" : (
-            <>
-              Demo<span className="hidden sm:inline"> wallet</span>
-            </>
-          )}
-        </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            disabled={isPending}
+            onClick={() => connect({ connector: demoConnector, chainId: LOCAL_CHAIN_ID })}
+            className="btn-gold whitespace-nowrap px-3 py-2.5 text-sm sm:px-4"
+          >
+            {isPending ? "Entering…" : (
+              <>
+                Demo<span className="hidden sm:inline"> wallet</span>
+              </>
+            )}
+          </motion.button>
+        </Tip>
       )}
       {/* chain UI lives solely in our ChainSelect pill — RainbowKit only
           renders the account chip, so the header never shows the network twice */}
